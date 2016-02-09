@@ -3,139 +3,112 @@
 
 import kareltherobot.*;
 
-public class Commands extends Robot
-{
+public class Commands extends Robot {
 	private int xcoord;
 	private int ycoord;
 	private Direction dir;
 	private int beeperCount;
 	
-	public Commands(int street, int avenue, Direction direction, int beepers)
-	{
+	public Commands(int street, int avenue, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
 		
-		xcoord=avenue;
-		ycoord=street;
-		dir=direction;
-		beeperCount=beepers;
+		xcoord = avenue;
+		ycoord = street;
+		dir = direction;
+		beeperCount = beepers;
 	}
 	
 	//MOVEMENT
 	
-	public void move(int count)
-	{
-		for(int i=0;i<count;i++)
-		{
+	public void move(int count) {
+		for(int i=0; i<count; i++) {
 			super.move();
 		}
 		
-		if(facingNorth())
-		{
-			ycoord+=count;
+		if(facingNorth()) {
+			ycoord += count;
 		}
-		else if(facingSouth())
-		{
-			ycoord-=count;
+		else if(facingSouth()) {
+			ycoord -= count;
 		}
-		else if(facingEast())
-		{
-			xcoord+=count;
+		else if(facingEast()) {
+			xcoord += count;
 		}
-		else if(facingWest())
-		{
-			xcoord-=count;
+		else if(facingWest()) {
+			xcoord -= count;
 		}
 	}
 	
-	public void move()
-	{
+	public void move() {
 		move(1);
 	}
 	
-	public void turnLeft(int count)
-	{
-		for(int i=0;i<count;i++)
-		{
+	public void turnLeft(int count) {
+		for(int i=0; i<count; i++) {
 			super.turnLeft();
 		}
 	}
 	
-	public void turnLeft()
-	{
+	public void turnLeft() {
 		turnLeft(1);
 	}
 	
-	public void turnRight()
-	{
+	public void turnRight() {
 		turnLeft(3);
 	}
 	
-	public void turnAround()
-	{
+	public void turnAround() {
 		turnLeft(2);
 	}
 	
 	//DIRECTIONS
 	
-	public void faceNorth()
-	{
-		while(!facingNorth())
-		{
+	public void faceNorth() {
+		while(!facingNorth()) {
 			turnLeft();
 		}
-		dir=North;
+		dir = North;
 	}
 	
-	public void faceSouth()
-	{
-		while(!facingSouth())
-		{
+	public void faceSouth() {
+		while(!facingSouth()) {
 			turnLeft();
 		}
-		dir=South;
+		dir = South;
 	}
 	
-	public void faceEast()
-	{
-		while(!facingEast())
-		{
+	public void faceEast() {
+		while(!facingEast()) {
 			turnLeft();
 		}
-		dir=East;
+		dir = East;
 	}
 	
-	public void faceWest()
-	{
-		while(!facingWest())
-		{
+	public void faceWest() {
+		while(!facingWest()) {
 			turnLeft();
 		}
-		dir=West;
+		dir = West;
 	}
 	
 	//GOTO
 	
-	public void goTo(int xdest,int ydest)
-	{
-		int xdiff=xdest-xcoord;
-		int ydiff=ydest-ycoord;
+	public void goTo(int xdest, int ydest) {
+		int xdiff = xdest - xcoord;
+		int ydiff = ydest - ycoord;
 		
-		if(xdiff>0)
-		{
+		if(xdiff>0) {
 			faceEast();
 		}
-		else
-		{
+		else if(xdiff<0) {
 			faceWest();
 		}
 		move(xdiff);
 		
-		if(ydiff>0)
-		{
+		if(ydiff>0) {
 			faceNorth();
 		}
-		else
-		{
+		else if(ydiff>0) {
 			faceSouth();
 		}
 		move(ydiff);
@@ -143,46 +116,36 @@ public class Commands extends Robot
 	
 	//BEEPER MANAGEMENT
 	
-	public void putBeeper(int count)
-	{
-		for(int i=0;i<count;i++)
-		{
+	public void putBeeper(int count) {
+		for(int i=0; i<count; i++) {
 			super.putBeeper();
 		}
-		beeperCount-=1;
+		beeperCount -= 1;
 	}
 	
-	public void putBeeper()
-	{
+	public void putBeeper() {
 		putBeeper(1);
 	}
 	
-	public void pickBeeper(int count)
-	{
-		for(int i=0;i<count;i++)
-		{
+	public void pickBeeper(int count) {
+		for(int i=0; i<count; i++) {
 			super.pickBeeper();
 		}
-		beeperCount+=1;
+		beeperCount += 1;
 	}
 	
-	public void pickBeeper()
-	{
+	public void pickBeeper() {
 		pickBeeper(1);
 	}
 	
-	public void putAllBeepers()
-	{
-		while(anyBeepersInBeeperBag())
-		{
+	public void putAllBeepers() {
+		while(anyBeepersInBeeperBag()) {
 			putBeeper();
 		}
 	}
 	
-	public void pickAllBeepers()
-	{
-		while(nextToABeeper())
-		{
+	public void pickAllBeepers() {
+		while(nextToABeeper()) {
 			pickBeeper();
 		}
 	}
