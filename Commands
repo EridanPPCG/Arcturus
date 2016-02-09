@@ -1,41 +1,42 @@
 //This class creates methods to govern the basic movements of the robot.
+//The robot moves on a Cartesian plane and moves at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (PPCG user Eridan)
 
 import kareltherobot.*;
 
 public class Commands extends Robot {
-	private int xcoord;
-	private int ycoord;
+	private int xCoordinate;
+	private int yCoordinate;
 	private Direction dir;
 	private int beeperCount;
 	
 	public Commands(int street, int avenue, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
 		
-		xcoord = avenue;
-		ycoord = street;
+		xCoordinate = avenue;
+		yCoordinate = street;
 		dir = direction;
 		beeperCount = beepers;
 	}
 	
 	//MOVEMENT
 	
-	public void move(int count) {
-		for(int i=0; i<count; i++) {
+	public void move(int steps) {
+		for(int i = 0; i < steps; i++) {
 			super.move();
 		}
 		
 		if(facingNorth()) {
-			ycoord += count;
+			yCoordinate += steps;
 		}
 		else if(facingSouth()) {
-			ycoord -= count;
+			yCoordinate -= steps;
 		}
 		else if(facingEast()) {
-			xcoord += count;
+			xCoordinate += steps;
 		}
 		else if(facingWest()) {
-			xcoord -= count;
+			xCoordinate -= steps;
 		}
 	}
 	
@@ -43,8 +44,8 @@ public class Commands extends Robot {
 		move(1);
 	}
 	
-	public void turnLeft(int count) {
-		for(int i=0; i<count; i++) {
+	public void turnLeft(int leftTurns) {
+		for(int i = 0; i < leftTurns; i++) {
 			super.turnLeft();
 		}
 	}
@@ -91,47 +92,47 @@ public class Commands extends Robot {
 		dir = West;
 	}
 	
-	//GOTO
+	//COORDINATE CHANGE
 	
-	public void goTo(int xdest, int ydest) {
-		int xdiff = xdest - xcoord;
-		int ydiff = ydest - ycoord;
+	public void coordinateChange(int xDestination, int yDestination) {
+		int xDifference = xDestination - xCoordinate;
+		int yDifference = yDestination - yCoordinate;
 		
-		if(xdiff>0) {
+		if(xDifference > 0) {
 			faceEast();
 		}
-		else if(xdiff<0) {
+		else if(xDifference < 0) {
 			faceWest();
 		}
-		move(xdiff);
+		move(xDifference);
 		
-		if(ydiff>0) {
+		if(yDifference > 0) {
 			faceNorth();
 		}
-		else if(ydiff>0) {
+		else if(yDifference > 0) {
 			faceSouth();
 		}
-		move(ydiff);
+		move(yDifference);
 	}
 	
 	//BEEPER MANAGEMENT
 	
-	public void putBeeper(int count) {
-		for(int i=0; i<count; i++) {
+	public void putBeeper(int drops) {
+		for(int i = 0; i < drops; i++) {
 			super.putBeeper();
 		}
-		beeperCount -= 1;
+		beeperCount -= drops;
 	}
 	
 	public void putBeeper() {
 		putBeeper(1);
 	}
 	
-	public void pickBeeper(int count) {
-		for(int i=0; i<count; i++) {
+	public void pickBeeper(int picks) {
+		for(int i = 0; i < picks; i++) {
 			super.pickBeeper();
 		}
-		beeperCount += 1;
+		beeperCount += picks;
 	}
 	
 	public void pickBeeper() {
