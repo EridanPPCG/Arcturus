@@ -2,12 +2,12 @@
 //The robot moves on a Cartesian plane and moves at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (PPCG user Eridan)
 
-import kareltherobot.*;
+import kareltherobot.Robot;
 
 public class Commands extends Robot {
 	private int xCoordinate;
 	private int yCoordinate;
-	private Direction dir;
+	private Direction currentDirection;
 	private int beeperCount;
 	
 	public Commands(int street, int avenue, Direction direction, int beepers) {
@@ -15,7 +15,7 @@ public class Commands extends Robot {
 		
 		xCoordinate = avenue;
 		yCoordinate = street;
-		dir = direction;
+		currentDirection = direction;
 		beeperCount = beepers;
 	}
 	
@@ -68,28 +68,28 @@ public class Commands extends Robot {
 		while(!facingNorth()) {
 			turnLeft();
 		}
-		dir = North;
+		currentDirection = North;
 	}
 	
 	public void faceSouth() {
 		while(!facingSouth()) {
 			turnLeft();
 		}
-		dir = South;
+		currentDirection = South;
 	}
 	
 	public void faceEast() {
 		while(!facingEast()) {
 			turnLeft();
 		}
-		dir = East;
+		currentDirection = East;
 	}
 	
 	public void faceWest() {
 		while(!facingWest()) {
 			turnLeft();
 		}
-		dir = West;
+		currentDirection = West;
 	}
 	
 	//COORDINATE CHANGE
