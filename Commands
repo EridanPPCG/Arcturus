@@ -1,5 +1,5 @@
 //This class creates methods to govern the basic movements of the robot.
-//The robot moves on a Cartesian plane and moves at 90˚ angles.
+//The robot moves on a Cartesian plane with origin (1,1) and turns at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (PPCG user Eridan)
 
 import kareltherobot.Robot;
