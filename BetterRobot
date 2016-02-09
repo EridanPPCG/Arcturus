@@ -1,16 +1,17 @@
 //This class creates methods to govern the basic movements of the robot.
 //The robot moves on a Cartesian plane with origin (1,1) and turns at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (Stack Exchange user Eridan)
+//Last updated 02/09/2016
 
 import kareltherobot.Robot;
 
-public class Commands extends Robot {
+public class BetterRobot extends Robot {
 	private int xCoordinate;
 	private int yCoordinate;
-	private Direction currentDirection;
+	public Direction currentDirection;
 	private int beeperCount;
 	
-	public Commands(int street, int avenue, Direction direction, int beepers) {
+	public BetterRobot(int street, int avenue, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
 		
 		xCoordinate = avenue;
@@ -23,7 +24,14 @@ public class Commands extends Robot {
 	
 	public void move(int steps) {
 		for(int i = 0; i < steps; i++) {
-			super.move();
+			if(frontIsClear()) {
+				super.move();
+			}
+			else {
+				System.out.println("Error shutoff: Ran into wall");
+				turnOff();
+				break;
+			}
 		}
 		
 		if(facingNorth()) {
@@ -40,26 +48,22 @@ public class Commands extends Robot {
 		}
 	}
 	
-	public void move() {
-		move(1);
-	}
-	
-	public void turnLeft(int leftTurns) {
-		for(int i = 0; i < leftTurns; i++) {
+	public void leftTurns(int turns) {
+		for(int i = 0; i < turns; i++) {
 			super.turnLeft();
 		}
 	}
 	
 	public void turnLeft() {
-		turnLeft(1);
+		leftTurns(1);
 	}
 	
 	public void turnRight() {
-		turnLeft(3);
+		leftTurns(3);
 	}
 	
 	public void turnAround() {
-		turnLeft(2);
+		leftTurns(2);
 	}
 	
 	//DIRECTIONS
@@ -119,24 +123,30 @@ public class Commands extends Robot {
 	
 	public void putBeeper(int drops) {
 		for(int i = 0; i < drops; i++) {
-			super.putBeeper();
+			if(anyBeepersInBeeperBag()) {
+				super.putBeeper();
+			}
+			else {
+				System.out.println("Error shutoff: Not enough beepers in bag");
+				turnOff();
+				break;
+			}
 		}
 		beeperCount -= drops;
 	}
 	
-	public void putBeeper() {
-		putBeeper(1);
-	}
-	
-	public void pickBeeper(int picks) {
-		for(int i = 0; i < picks; i++) {
-			super.pickBeeper();
+	public void pickBeeper(int drops) {
+		for(int i = 0; i < drops; i++) {
+			if(nextToABeeper()) {
+				super.pickBeeper();
+			}
+			else {
+				System.out.println("Error shutoff: Not next to a beeper");
+				turnOff();
+				break;
+			}
 		}
-		beeperCount += picks;
-	}
-	
-	public void pickBeeper() {
-		pickBeeper(1);
+		beeperCount -= drops;
 	}
 	
 	public void putAllBeepers() {
