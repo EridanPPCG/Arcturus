@@ -165,33 +165,27 @@ public class BetterRobot extends Robot {
 	
 	//ACQUIRING INFORMATION ABOUT ROBOT STATE
 	
-	public String getRobotName()
-	{
+	public String getRobotName() {
 		return robotName;
 	}
 	
-	public int getXCoordinate()
-	{
+	public int getXCoordinate() {
 		return xCoordinate;
 	}
 	
-	public int getYCoordinate()
-	{
+	public int getYCoordinate() {
 		return yCoordinate;
 	}
 	
-	public Direction getCurrentDirection()
-	{
+	public Direction getCurrentDirection() {
 		return currentDirection;
 	}
 	
-	public int getBeeperCount()
-	{
+	public int getBeeperCount() {
 		return beeperCount;
 	}
 	
-	public void printRobotInformation()
-	{
+	public void printRobotInformation() {
 		System.out.printf("Information about the robot %s \nLocation: (%d, %d) \nFacing: %s \nBeepers: %d", getRobotName(), getXCoordinate(), getYCoordinate(), getCurrentDirection(), getBeeperCount());
 	}
 }
