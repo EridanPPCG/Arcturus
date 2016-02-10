@@ -8,7 +8,7 @@ import kareltherobot.Robot;
 public class BetterRobot extends Robot {
 	private int xCoordinate;
 	private int yCoordinate;
-	public Direction currentDirection;
+	private Direction currentDirection;
 	private int beeperCount;
 	
 	public BetterRobot(int street, int avenue, Direction direction, int beepers) {
