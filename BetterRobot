@@ -1,7 +1,8 @@
+
 //This class creates methods to govern the basic movements of the robot.
 //The robot moves on a Cartesian plane with origin (1,1) and turns at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (Stack Exchange user Eridan)
-//Last updated 02/11/2016
+//Last updated 02/16/2016
 
 import kareltherobot.Robot;
 
@@ -161,6 +162,17 @@ public class BetterRobot extends Robot {
 		while(nextToABeeper()) {
 			pickBeeper();
 		}
+	}
+	
+	public void beeperToASCII() {
+		int beepersPickedUp = 0;
+		
+		while(nextToABeeper()) {
+			pickBeeper();
+			beepersPickedUp++;
+		}
+		
+		System.out.println((char) beepersPickedUp);
 	}
 	
 	//ACQUIRING INFORMATION ABOUT ROBOT STATE
