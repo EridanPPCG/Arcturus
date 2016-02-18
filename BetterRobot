@@ -6,11 +6,11 @@
 import kareltherobot.Robot;
 
 public class BetterRobot extends Robot {
-	private int xCoordinate;
-	private int yCoordinate;
-	private Direction currentDirection;
-	private int beeperCount;
-	private String robotName;
+	public int xCoordinate;
+	public int yCoordinate;
+	public Direction currentDirection;
+	public int beeperCount;
+	public String robotName;
 	
 	public BetterRobot(String name, int avenue, int street, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
