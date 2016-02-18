@@ -1,0 +1,46 @@
+import kareltherobot.Robot;
+
+public class LetterRobot extends BetterRobot {
+	
+	public LetterRobot(String name, int avenue, int street, Direction direction, int beepers) {
+		super(name, avenue, street, direction, beepers);
+	}
+	
+	public void drawLetter(int distanceToTop, String letterGrid) {
+		int firstXCoordinate = xCoordinate;
+		int firstYCoordinate = yCoordinate;
+		int maximumXCoordinate = xCoordinate;
+		
+		move(distanceToTop);
+		
+		for(int numberIndex = 0; numberIndex < letterGrid.length(); numberIndex++) {
+			if(letterGrid.charAt(numberIndex) == '0') {
+				faceEast();
+				move(1);
+				maximumXCoordinate = Math.max(maximumXCoordinate, xCoordinate);
+			}
+			else if(letterGrid.charAt(numberIndex) == '1') {
+				faceEast();
+				putBeeperAndMove();
+				maximumXCoordinate = Math.max(maximumXCoordinate, xCoordinate);
+			}
+			else if(letterGrid.charAt(numberIndex) == '2') {
+				coordinateChange(firstXCoordinate, yCoordinate-1);
+				printRobotInformation();
+			}
+			else if(letterGrid.charAt(numberIndex) == '3') {
+				coordinateChange(maximumXCoordinate + 1, firstYCoordinate);
+				faceNorth();
+			}
+		}
+	}
+	
+	public void drawString(String string) {
+		for(int letterIndex = 0; letterIndex < string.length(); letterIndex++) {
+			if(string.charAt(letterIndex) == 'A') {
+				drawLetter(4, "0110210012111121001210013");
+			}
+			//else if...
+		}
+	}
+}
