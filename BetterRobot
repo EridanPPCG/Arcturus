@@ -50,6 +50,10 @@ public class BetterRobot extends Robot {
 		}
 	}
 	
+	public void move() {
+		move(1);
+	}
+	
 	public void leftTurns(int turns) {
 		for(int i = 0; i < turns; i++) {
 			super.turnLeft();
