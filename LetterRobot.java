@@ -1,7 +1,7 @@
 //This class creates methods to draw characters on the plane.
 //In the grids, 1 represents a beeper, and 0 represents empty space
 //Created 02/18/2016 by Trevor B. (Stack Exchange user Eridan)
-//Last updated 02/18/2016
+//Last updated 02/22/2016
 
 public class LetterRobot extends BetterRobot {
 
