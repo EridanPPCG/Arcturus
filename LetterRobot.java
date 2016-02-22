@@ -21,7 +21,7 @@ public class LetterRobot extends BetterRobot {
             
             faceThisDirection(East);
         	
-        	if(currentCharacter == '0') {
+            if(currentCharacter == '0') {
                 faceThisDirection(East);
                 move(1);
                 maximumXCoordinate = Math.max(maximumXCoordinate, xCoordinate);
