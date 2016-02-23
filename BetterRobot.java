@@ -43,7 +43,7 @@ public class BetterRobot extends Robot {
                 }
             }
             else {
-                System.out.println("Error shutoff: Ran into wall");
+                System.err.println("Error shutoff: Ran into wall");
                 turnOff();
                 break;
             }
@@ -154,7 +154,7 @@ public class BetterRobot extends Robot {
                 super.putBeeper();
             }
             else {
-                System.out.println("Error shutoff: Not enough beepers in bag");
+                System.err.println("Error shutoff: Not enough beepers in bag");
                 turnOff();
                 break;
             }
@@ -168,7 +168,7 @@ public class BetterRobot extends Robot {
                 super.pickBeeper();
             }
             else {
-                System.out.println("Error shutoff: Not next to a beeper");
+                System.err.println("Error shutoff: Not next to a beeper");
                 turnOff();
                 break;
             }
