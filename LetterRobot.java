@@ -1,7 +1,7 @@
 //This class creates methods to draw characters on the plane.
 //In the grids, 1 represents a beeper, and 0 represents empty space
 //Created 02/18/2016 by Trevor B. (Stack Exchange user Eridan)
-//Last updated 02/25/2016
+//Last updated 03/01/2016
 
 public class LetterRobot extends BetterRobot {
 	
@@ -10,9 +10,9 @@ public class LetterRobot extends BetterRobot {
 	}
 	
 	public void drawLetter(int distanceToTop, String letterGrid) {
-		int firstXCoordinate = xCoordinate;
-		int firstYCoordinate = yCoordinate;
-		int maximumXCoordinate = xCoordinate;
+		int firstXCoordinate =  getXCoordinate();
+		int firstYCoordinate = getYCoordinate();
+		int maximumXCoordinate = getXCoordinate();
 		
 		move(distanceToTop);
 		
@@ -22,15 +22,15 @@ public class LetterRobot extends BetterRobot {
 			if(characterInString == '0') {
 				faceThisDirection(East);
 				move(1);
-				maximumXCoordinate = Math.max(maximumXCoordinate, xCoordinate);
+				maximumXCoordinate = Math.max(maximumXCoordinate, getXCoordinate());
 			}
 			else if(characterInString == '1') {
 				faceThisDirection(East);
 				putBeeperAndMove();
-				maximumXCoordinate = Math.max(maximumXCoordinate, xCoordinate);
+				maximumXCoordinate = Math.max(maximumXCoordinate, getXCoordinate());
 			}
 			else if(characterInString == ' ') {
-				coordinateChange(firstXCoordinate, yCoordinate-1);
+				coordinateChange(firstXCoordinate, getYCoordinate()-1);
 			}
 		}
 		
