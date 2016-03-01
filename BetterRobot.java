@@ -1,25 +1,63 @@
 //This class creates methods to govern the basic movements of the robot.
 //The robot moves on a Cartesian plane with origin (1,1) and turns at 90˚ angles.
 //Created 02/08/2016 by Trevor B. (Stack Exchange user Eridan)
-//Last updated 02/22/2016
+//Last updated 03/01/2016
 
 import kareltherobot.Robot;
 
 public class BetterRobot extends Robot {
-    public int xCoordinate;
-    public int yCoordinate;
-    public Direction currentDirection;
-    public int beeperCount;
-    public String robotName;
+    private int xCoordinate;
+    private int yCoordinate;
+    private Direction currentDirection;
+    private int beeperCount;
+    private final String ROBOT_NAME;
 
     public BetterRobot(String name, int avenue, int street, Direction direction, int beepers) {
         super(street, avenue, direction, beepers);
 
-        robotName = name;
+        ROBOT_NAME = name;
         xCoordinate = avenue;
         yCoordinate = street;
         currentDirection = direction;
         beeperCount = beepers;
+    }
+    
+    //SETTERS AND GETTERS
+    
+    public void setXCoordinate(int xCoordinate) {
+    	xCoordinate = this.xCoordinate;
+    }
+    
+    public int getXCoordinate() {
+    	return xCoordinate;
+    }
+    
+    public void setYCoordiante(int yCoordinate) {
+    	yCoordinate = this.yCoordinate;
+    }
+    
+    public int getYCoordinate() {
+    	return yCoordinate;
+    }
+    
+    public void setCurrentDirection(Direction currentDirection) {
+    	currentDirection = this.currentDirection;
+    }
+    
+    public Direction getCurrentDirection() {
+    	return currentDirection;
+    }
+    
+    public void setBeeperCount(int beeperCount) {
+    	beeperCount = this.beeperCount;
+    }
+    
+    public int getBeeperCount() {
+    	return beeperCount;
+    }
+    
+    public String getRobotName() {
+    	return ROBOT_NAME;
     }
 
     //MOVEMENT
@@ -48,10 +86,6 @@ public class BetterRobot extends Robot {
                 break;
             }
         }
-    }
-
-    public void move() {
-        System.err.println("You forgot to type a 1.");
     }
     
     public void updateCurrentDirection() {
@@ -93,29 +127,28 @@ public class BetterRobot extends Robot {
 
     //DIRECTIONS
     
+    public boolean isFacingDirection(Direction currentDirection) {
+    	boolean isFacing = false;
+    	
+    	if(currentDirection == North && this.facingNorth()) {
+    		isFacing = true;
+    	}
+    	else if(currentDirection == South && this.facingSouth()) {
+    		isFacing = true;
+    	}
+    	else if(currentDirection == East && this.facingEast()) {
+    		isFacing = true;
+    	}
+    	else if(currentDirection == West && this.facingWest()) {
+    		isFacing = true;
+    	}
+    	
+    	return isFacing;
+    }
+    
     public void faceThisDirection(Direction newDirection) {
-    	if(newDirection == North) {
-    		while(!facingNorth()) {
-                turnLeft();
-            }
-    	}
-    	
-    	if(newDirection == South) {
-    		while(!facingSouth()) {
-                turnLeft();
-            }
-    	}
-    	
-    	if(newDirection == East) {
-    		while(!facingEast()) {
-                turnLeft();
-            }
-    	}
-    	
-    	if(newDirection == West) {
-    		while(!facingWest()) {
-                turnLeft();
-            }
+    	while(!this.isFacingDirection(newDirection)) {
+    		turnLeft();
     	}
     }
 
@@ -152,6 +185,7 @@ public class BetterRobot extends Robot {
         for(int i = 0; i < drops; i++) {
             if(anyBeepersInBeeperBag()) {
                 super.putBeeper();
+                beeperCount -= 1;
             }
             else {
                 System.err.println("Error shutoff: Not enough beepers in bag");
@@ -159,13 +193,13 @@ public class BetterRobot extends Robot {
                 break;
             }
         }
-        beeperCount -= drops;
     }
 
     public void pickBeeper(int drops) {
         for(int i = 0; i < drops; i++) {
             if(nextToABeeper()) {
                 super.pickBeeper();
+                beeperCount += 1;
             }
             else {
                 System.err.println("Error shutoff: Not next to a beeper");
@@ -173,28 +207,27 @@ public class BetterRobot extends Robot {
                 break;
             }
         }
-        beeperCount -= drops;
     }
 
     public void putAllBeepers() {
         while(anyBeepersInBeeperBag()) {
-            putBeeper();
+            putBeeper(1);
         }
     }
 
     public void pickAllBeepers() {
         while(nextToABeeper()) {
-            pickBeeper();
+            pickBeeper(1);
         }
     }
 
     public void putBeeperAndMove() {
-        putBeeper();
+        putBeeper(1);
         move(1);
     }
 
     public void pickBeeperAndMove() {
-        pickBeeper();
+        pickBeeper(1);
         move(1);
     }
 
@@ -202,7 +235,7 @@ public class BetterRobot extends Robot {
         int beepersPickedUp = 0;
 
         while(nextToABeeper()) {
-            pickBeeper();
+            pickBeeper(1);
             beepersPickedUp++;
         }
 
@@ -213,10 +246,25 @@ public class BetterRobot extends Robot {
 
     public void printRobotInformation() {
         if(beeperCount!=infinity) {
-            System.out.printf("Information about the robot %s \nLocation: (%d, %d) \nFacing: %s \nBeepers: %d", robotName, xCoordinate, yCoordinate, currentDirection, beeperCount);
+            System.out.printf("Information about the robot %s \nLocation: (%d, %d) \nFacing: %s \nBeepers: %d", ROBOT_NAME, xCoordinate, yCoordinate, currentDirection, beeperCount);
         }
         else {
-            System.out.printf("Information about the robot %s \nLocation: (%d, %d) \nFacing: %s \nBeepers: Infinity", robotName, xCoordinate, yCoordinate, currentDirection);
+            System.out.printf("Information about the robot %s \nLocation: (%d, %d) \nFacing: %s \nBeepers: Infinity", ROBOT_NAME, xCoordinate, yCoordinate, currentDirection);
         }
     }
+    
+    //CATCHING TYPOES BY FORGETTING ARGUMENTS
+    
+    public void move() {
+        System.err.println("You forgot to type a 1. (move statement)");
+    }
+    
+    public void putBeeper() {
+        System.err.println("You forgot to type a 1. (putBeeper statement");
+    }
+    
+    public void pickBeeper() {
+        System.err.println("You forgot to type a 1. (pickBeeper statement");
+    }
+    
 }
